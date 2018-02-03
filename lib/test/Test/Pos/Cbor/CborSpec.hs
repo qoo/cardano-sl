@@ -15,7 +15,7 @@ module Test.Pos.Cbor.CborSpec
 import           Universum
 
 import qualified Data.ByteString as BS
-import           Test.Hspec (Arg, Expectation, Spec, SpecWith, describe, it, pendingWith, shouldBe)
+import           Test.Hspec (Arg, Expectation, Spec, SpecWith, describe, it, shouldBe)
 import           Test.Hspec.QuickCheck (modifyMaxSize, modifyMaxSuccess, prop)
 import           Test.QuickCheck
 import           Test.QuickCheck.Arbitrary.Generic (genericArbitrary, genericShrink)
@@ -29,7 +29,6 @@ import           Pos.Arbitrary.Infra ()
 import           Pos.Arbitrary.Slotting ()
 import           Pos.Arbitrary.Ssc ()
 import           Pos.Arbitrary.Update ()
-import           Pos.Arbitrary.Update.Core ()
 import           Pos.Binary.Class
 import           Pos.Binary.Communication ()
 import           Pos.Binary.Core ()
@@ -336,10 +335,3 @@ spec = withDefConfiguration $ do
         describe "Lib/core instances" $ do
             binaryTest @(Attributes X1)
             binaryTest @(Attributes X2)
-
-            -- Pending specs which doesn't have an `Arbitrary` or `Eq` instance defined.
-            it "UserSecret" $ pendingWith "No Eq instance defined"
-            it "WalletUserSecret" $ pendingWith "No Eq instance defined"
-
-pendingNoArbitrary :: String -> Spec
-pendingNoArbitrary ty = it ty $ pendingWith "Arbitrary instance required"
